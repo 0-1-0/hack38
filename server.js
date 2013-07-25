@@ -35,7 +35,7 @@ mongo.connect(process.env.MONGOLAB_URI, {}, function(error, db){
             requestCollection.find(
               {loc:
                 {
-                 $nearSphere: doc.loc,
+                 $near: doc.loc.coordinates,
                  $maxDistance: 1000000//distance in meters
                 }
               }, 
