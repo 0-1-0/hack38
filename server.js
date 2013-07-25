@@ -26,7 +26,7 @@ mongo.connect(process.env.MONGOLAB_URI, {}, function(error, db){
             t    : new Date(),
             loc  : { 
               type : "Point" ,
-              coordinates : [req.query.lat, req.query.lon]
+              coordinates : [parseInt(req.query.lat), parseInt(req.query.lon)]
             },
             fbid : req.query.fbid
           };
