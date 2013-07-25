@@ -23,18 +23,26 @@ mongo.connect(process.env.MONGOLAB_URI, {}, function(error, db){
         if(req.query != null) {
 
           var doc = {
-            t    : new Date(),
-            loc  : { 
-              type : "Point" ,
-              coordinates : [parseInt(req.query.lat), parseInt(req.query.lon)]
+            t: new Date(),
+            loc: { 
+              type: "Point" ,
+              coordinates: [parseInt(req.query.lat), parseInt(req.query.lon)]
             },
             fbid : req.query.fbid
           };
 
           requestCollection.insert(doc, function(error, result){
-            // result will have the object written to the db so let's just
-            // write it back out to the browser
-            res.write(JSON.stringify(result));
+            requestCollection.find(
+              {loc:
+                {near:
+                  {geometry:
+                    doc.loc,
+                    maxDistance: 1000000//distance in meters
+                } } }, 
+
+              function(err, results){
+                  res.write(JSON.stringify(results));
+              });  
           });
         }
         
