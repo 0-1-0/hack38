@@ -41,7 +41,12 @@ mongo.connect(process.env.MONGOLAB_URI, {}, function(error, db){
                 } } }, 
 
               function(err, results){
-                  res.write(JSON.stringify(results));
+                  var fbfrinds = [];
+                  results.forEach(function(idoc){
+                    fbfriends.push(idoc);
+                  });
+
+                  res.write(JSON.stringify(fbfrineds));
               });  
           });
         }
