@@ -24,18 +24,15 @@ mongo.connect(process.env.MONGOLAB_URI, {}, function(error, db){
 
           var doc = {
             t: new Date(),
-            loc: { 
-              type: "Point" ,
-              coordinates: [parseInt(req.query.lat), parseInt(req.query.lon)]
-            },
-            fbid : req.query.fbid
+            loc:  [parseInt(req.query.lon), parseInt(req.query.lat)],
+            fbid: req.query.fbid
           };
 
           requestCollection.insert(doc, function(error, result){
             requestCollection.find(
               {loc:
                 {
-                 $near: doc.loc.coordinates,
+                 $near: doc.loc,
                  $maxDistance: 1000000//distance in meters
                 }
               }, 
