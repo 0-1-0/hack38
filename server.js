@@ -26,9 +26,9 @@ mongo.connect(process.env.MONGOLAB_URI, {}, function(error, db){
             t    : new Date(),
             loc  : { 
               type : "Point" ,
-              coordinates : [req.lat, req.lon]
+              coordinates : [req.query.lat, req.query.lon]
             },
-            fbid : req.fbid
+            fbid : req.query.fbid
           };
 
           requestCollection.insert(doc, function(error, result){
