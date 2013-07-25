@@ -28,14 +28,14 @@ mongo.connect(process.env.MONGOLAB_URI, {}, function(error, db){
             fbid: req.query.fbid
           };
 
-          requestCollection.insert(doc, function(error, result){
-            console.log(error);
-            requestCollection.find({'loc':{$near: doc.loc, $maxDistance:10}})
-            .count(
-              function(err, fbfriends){
-                res.write(fbfriends);
-              });  
+          requestCollection.insert(doc);
+          requestCollection.find({'loc':{$near: doc.loc, $maxDistance:10}})
+          .toArray(
+            function(err, xxx){
+              res.write(xxx); 
           });
+        
+
         }
         
         res.end();
