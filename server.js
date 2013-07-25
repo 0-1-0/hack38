@@ -23,7 +23,7 @@ mongo.connect(process.env.MONGOLAB_URI, {}, function(error, db){
         if(req.query != null) {
 
           var doc = req.query;
-          doc['timestamp'] = new db.bson_serializer.Timestamp();
+          doc['t'] = new Date();
 
 
           requestCollection.insert(doc, function(error, result){
@@ -38,5 +38,5 @@ mongo.connect(process.env.MONGOLAB_URI, {}, function(error, db){
     ).listen(process.env.PORT || 8080);
     // the PORT variable will be assigned by Heroku
   });
-  
+
 });
