@@ -32,7 +32,7 @@ mongo.connect(process.env.MONGOLAB_URI, {}, function(error, db){
           requestCollection.find({'loc':{$near: doc.loc, $maxDistance:10}})
           .toArray(
             function(err, xxx){
-              res.write(xxx); 
+              res.write(JSON.stringify(xxx)); 
           });
         
 
