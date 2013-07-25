@@ -34,12 +34,11 @@ mongo.connect(process.env.MONGOLAB_URI, {}, function(error, db){
           requestCollection.insert(doc, function(error, result){
             requestCollection.find(
               {loc:
-                {near:
-                  {geometry:
-                    doc.loc,
-                    maxDistance: 1000000//distance in meters
-                } } }, 
-
+                {
+                 $near: doc.loc,
+                 $maxDistance: 1000000//distance in meters
+                }
+              }, 
               function(err, results){
                   results.toArray(function(err, fbfriends){
                     res.write(JSON.stringify(fbfriends));
