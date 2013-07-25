@@ -24,12 +24,12 @@ mongo.connect(process.env.MONGOLAB_URI, {}, function(error, db){
 
           var doc = {
             t: new Date(),
-            loc:  [parseInt(req.query.lon), parseInt(req.query.lat)],
+            loc:  [parseFloat(req.query.lon), parseFloat(req.query.lat)],
             fbid: req.query.fbid
           };
 
           requestCollection.insert(doc, function(error, result){
-            requestCollection.find({loc:{$near: [parseInt(req.query.lat), parseInt(req.query.lon)]}}).toArray(
+            requestCollection.find({loc:{$near: doc.loc}}).toArray(
               function(err, fbfriends){
                 res.write(JSON.stringify(fbfriends));
               });  
