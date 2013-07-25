@@ -12,27 +12,31 @@ mongo.connect(process.env.MONGOLAB_URI, {}, function(error, db){
     console.log("Error connecting to MongoLab");
   });
   
-  db.createCollection('requests', function(err, collection){
-    db.collection('requests', function(err, collection){
-      var requestCollection = collection;
-      connect(
-        connect.favicon(),                    // Return generic favicon
-        connect.query(),                      // populate req.query with query parameters
-        connect.bodyParser(),                 // Get JSON data from body
-        function(req, res, next){             // Handle the request
-          res.setHeader("Content-Type", "application/json");
-          if(req.query != null) {
-            requestCollection.insert(req.query, function(error, result){
-              // result will have the object written to the db so let's just
-              // write it back out to the browser
-              res.write(JSON.stringify(result));
-            });
-          }
-          
-          res.end();
+  db.collection('requests', function(err, collection){
+    var requestCollection = collection;
+    connect(
+      connect.favicon(),                    // Return generic favicon
+      connect.query(),                      // populate req.query with query parameters
+      connect.bodyParser(),                 // Get JSON data from body
+      function(req, res, next){             // Handle the request
+        res.setHeader("Content-Type", "application/json");
+        if(req.query != null) {
+
+          var doc = req.query;
+          doc['timestamp'] = new db.bson_serializer.Timestamp();
+
+
+          requestCollection.insert(doc, function(error, result){
+            // result will have the object written to the db so let's just
+            // write it back out to the browser
+            res.write(JSON.stringify(result));
+          });
         }
-      ).listen(process.env.PORT || 8080);
-      // the PORT variable will be assigned by Heroku
-    });
+        
+        res.end();
+      }
+    ).listen(process.env.PORT || 8080);
+    // the PORT variable will be assigned by Heroku
   });
+  
 });
