@@ -30,7 +30,7 @@ mongo.connect(process.env.MONGOLAB_URI, {}, function(error, db){
 
           requestCollection.insert(doc, function(error, result){
             console.log(error);
-            requestCollection.find({loc:{$nearSphere: doc.loc, $maxDistance:10000}}).toArray(
+            requestCollection.find({'loc':{$near: [24,32], $maxDistance:10}}).toArray(
               function(err, fbfriends){
                 res.write(JSON.stringify(fbfriends));
               });  
