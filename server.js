@@ -32,14 +32,11 @@ mongo.connect(process.env.MONGOLAB_URI, {}, function(error, db){
             requestCollection.find(
               {loc:
                 {
-                 $near: [parseInt(req.query.lon), parseInt(req.query.lat)],
+                 $near: doc.loc,
                  $maxDistance: 1000000//distance in meters
                 }
-              }, 
-              function(err, results){
-                  results.toArray(function(err, fbfriends){
-                    res.write(JSON.stringify(fbfriends));
-                  });
+              }).toArray(function(err, fbfriends){
+                res.write(JSON.stringify(fbfriends));
               });  
           });
         }
