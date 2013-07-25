@@ -22,9 +22,14 @@ mongo.connect(process.env.MONGOLAB_URI, {}, function(error, db){
         res.setHeader("Content-Type", "application/json");
         if(req.query != null) {
 
-          var doc = req.query;
-          doc['t'] = new Date();
-
+          var doc = {
+            t    : new Date(),
+            loc  : { 
+              type : "Point" ,
+              coordinates : [req.lat, req.lon]
+            },
+            fbid : req.fbid
+          };
 
           requestCollection.insert(doc, function(error, result){
             // result will have the object written to the db so let's just
