@@ -1,47 +1,52 @@
-var connect = require('connect'),
-  mongo = require('mongodb');
- 
-// Connect to a mongo database via URI
-// With the MongoLab addon the MONGOLAB_URI config variable is added to your
-// Heroku environment.  It can be accessed as process.env.MONGOLAB_URI
-mongo.connect(process.env.MONGOLAB_URI, {}, function(error, db){
- 
-  // console.log will write to the heroku log which can be accessed via the 
-  // command line as "heroku logs"
-  db.addListener("error", function(error){
-    console.log("Error connecting to MongoLab");
-  });
-  
-  db.collection('requests', function(err, collection){
-    var requestCollection = collection;
-    connect(
-      connect.favicon(),                    // Return generic favicon
-      connect.query(),                      // populate req.query with query parameters
-      connect.bodyParser(),                 // Get JSON data from body
-      function(req, res, next){             // Handle the request
-        res.setHeader("Content-Type", "application/json");
-        if(req.query != null) {
+var express = require('express');
+var mongoose = require('mongoose'),Schema = mongoose.Schema
 
-          var doc = {
-            t: new Date(),
-            loc:  [parseFloat(req.query.lon), parseFloat(req.query.lat)],
-            fbid: req.query.fbid
-          };
+var app = express();
 
-          requestCollection.insert(doc);
-          requestCollection.find({'loc':{$near: doc.loc, $maxDistance:10}})
-          .toArray(
-            function(err, xxx){
-              res.write(JSON.stringify(xxx)); 
-          });
-        
+var mongo_uri = process.env.MONGOLAB_URI || 'mongodb://localhost:27017/test';
+mongoose.connect(mongo_uri);
 
-        }
-        
-        res.end();
-      }
-    ).listen(process.env.PORT || 8080);
-    // the PORT variable will be assigned by Heroku
+//Model
+var bumpSchema = new Schema({
+    fbid: String,
+    date: {type: Date, default: Date.now, expires: 120},
+    geo: {type: [Number], index: '2d'}
+});
+var Bump = mongoose.model('Bump', bumpSchema);
+
+app.configure(function () {
+    app.use(express.bodyParser());
+    app.use(express.methodOverride());
+    app.use(app.router);
+});
+
+app.get('/', function(req, res){
+  var bump = new Bump({fbid:req.query.fbid, geo:req.query.geo.split(',')});
+  if(req.query.timestamp){
+    bump.date = Date(req.query.timestamp);
+  };
+  bump.save(function(err){
+    if (err) throw err;
+    console.log('bump saved');
   });
 
+  Bump.find({geo: {$nearSphere: bump.geo, $maxDistance: 0.01} }, 
+    function(err,docs){
+      if(err) throw err;
+      var results = docs.map(function(d){
+        var obj = d.toObject();
+        obj.timedelta = obj.date.getTime() - bump.date.getTime();
+        delete obj['date'];
+        delete obj['geo'];
+        delete obj['_id'];
+        delete obj['__v'];
+        return obj;
+      });
+      res.json(results.sort(function(a,b){return b.timedelta - a.timedelta}));
+    }
+  );
+});
+
+app.listen(process.env.PORT, function() {
+  console.log("Has started on " + process.env.PORT);
 });

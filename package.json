@@ -7,7 +7,7 @@
     "npm": "1.0.x"
   },
   "dependencies": {
-    "connect": "1.8.x",
-    "mongodb": "0.9.x"
+    "express": "3.0.0rc2",
+    "mongoose": "3.0.0"
   }
 }
