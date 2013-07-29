@@ -33,6 +33,8 @@ app.get('/', function(req, res){
   Bump.find({geo: {$nearSphere: bump.geo, $maxDistance: 0.01} }, 
     function(err,docs){
       if(err) throw err;
+
+      //convert MongoDB Query into an array of objects
       var results = docs.map(function(d){
         var obj = d.toObject();
         obj.timedelta = obj.date.getTime() - bump.date.getTime();
@@ -42,7 +44,18 @@ app.get('/', function(req, res){
         delete obj['__v'];
         return obj;
       });
-      res.json(results.sort(function(a,b){return b.timedelta - a.timedelta}));
+
+      //Sort results by timedelta to the saved bump
+      results = results.sort(function(a,b){return b.timedelta - a.timedelta});
+      //return only uniq id results
+      var flags = {}, uniq_results = [];
+      for (var i = 0; i < results.length; i++){
+        if(flags[results[i].fbid]) continue;
+        flags[results[i].fbid] = true;
+        uniq_results.push(results[i]);
+      }
+
+      res.json(uniq_results);
     }
   );
 });
