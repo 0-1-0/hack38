@@ -23,12 +23,29 @@
 	      <td>interval</td>
 	      <td id="moInterval"></td>
 	    </tr>
+	    <tr>
+	      <td>geolocation</td>
+	      <td id="geo"></td>
+	    </tr>
 	  </table>
 	</div>
 </body>
 
 
 	<script>
+		
+
+		function getLocation() {
+		  if (navigator.geolocation) {
+		    navigator.geolocation.getCurrentPosition(function(position){
+		    	document.getElementById("geo").innerHTML= position.coords.longitude + "," + position.coords.latitude;
+		    });
+		  }
+		  else {
+		  	document.getElementById("geo").innerHTML="Geolocation is not supported by this browser.";
+		   }
+		}
+
 		mcnt = 0.0;
 
 		function deviceMotionHandler(eventData) {
@@ -52,6 +69,7 @@
 
 		  if (mcnt > 1.0) {
 		  	alert('BUMP!');
+		  	getLocation();
 		  	mcnt = 0.0;
 		  }
 
