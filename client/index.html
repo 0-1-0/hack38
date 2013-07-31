@@ -85,12 +85,14 @@
       	function getLocation() {
 		  if (navigator.geolocation) {
 		    navigator.geolocation.getCurrentPosition(function(position){
-		    	document.getElementById("geo").innerHTML= position.coords.longitude + "," + position.coords.latitude;
+		    	var geo = position.coords.longitude + "," + position.coords.latitude;
+		    	$("#geo").html= geo;
+		    	return geo;
 		    });
 		  }
 		  else {
-		  	document.getElementById("geo").innerHTML="Geolocation is not supported by this browser.";
-		   }
+		  	$("#geo").html="Geolocation is not supported by this browser.";
+		   } 
 		}
 
 		function getTimeStamp(){
