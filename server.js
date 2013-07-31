@@ -9,6 +9,7 @@ mongoose.connect(mongo_uri);
 //Model
 var bumpSchema = new Schema({
     fbid: String,
+    name: String,
     date: {type: Date, default: Date.now, expires: 120},
     geo: {type: [Number], index: '2d'}
 });
@@ -20,8 +21,13 @@ app.configure(function () {
     app.use(app.router);
 });
 
+
+app.get('/html5', function(req, res){
+  res.sendfile('client/index.html');
+});
+
 app.get('/', function(req, res){
-  var bump = new Bump({fbid:req.query.fbid, geo:req.query.geo.split(',')});
+  var bump = new Bump({fbid:req.query.fbid, name:req.query.name, geo:req.query.geo.split(',')});
   if(req.query.timestamp){
     bump.date = Date(req.query.timestamp);
   };
