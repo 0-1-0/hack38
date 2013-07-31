@@ -39,7 +39,7 @@ function respondBumpsNear(bump, res){
       //convert MongoDB Query into an array of objects
       var results = docs.map(function(d){
         var obj = d.toObject();
-        obj.timedelta = obj.date.getTime() - bump.date.getTime();
+        obj.timedelta = bump.date.getTime() - obj.date.getTime();
         delete obj['date'];
         delete obj['geo'];
         delete obj['_id'];
@@ -48,11 +48,15 @@ function respondBumpsNear(bump, res){
       });
 
       //Sort results by timedelta to the saved bump
-      results = results.sort(function(a,b){return b.timedelta - a.timedelta});
+      results = results.sort(function(a,b){return a.timedelta - b.timedelta});
       //return only uniq id results
       var flags = {}, uniq_results = [];
       for (var i = 0; i < results.length; i++){
+        //not uniq
         if(flags[results[i].fbid]) continue;
+        //obsolete
+        if(results[i].timedelta > 6000) continue;
+
         flags[results[i].fbid] = true;
         uniq_results.push(results[i]);
       }
