@@ -91,12 +91,12 @@
 		    });
 		  }
 		  else {
-		  	$("#geo").html="Geolocation is not supported by this browser.";
+		  	return "";
 		   } 
 		}
 
 		function getTimeStamp(){
-			document.getElementById("timestamp").innerHTML = (new Date().getTime());
+			return (new Date().getTime());
 		}
 
 		mcnt = 0.0;
