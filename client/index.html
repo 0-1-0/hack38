@@ -29,6 +29,8 @@
 
 
 	<script>
+		mcnt = 0.0;
+
 		function deviceMotionHandler(eventData) {
 		  var info, xyz = "[X, Y, Z]";
 
@@ -41,6 +43,17 @@
 
 		  var magnitude = Math.sqrt(acc.x*acc.x + acc.y*acc.y + acc.z*acc.z);
 		  document.getElementById("magnitude").innerHTML = magnitude;
+
+		  
+		  //BUMP logic
+		  if (magnitude > 1.4) {
+		  	mcnt += eventData.interval;
+		  }
+
+		  if (mcnt > 1.0) {
+		  	alert('BUMP!');
+		  	mcnt = 0.0;
+		  }
 
 
 		  // // Grab the refresh interval from the results
