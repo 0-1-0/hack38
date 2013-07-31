@@ -10,7 +10,7 @@ mongoose.connect(mongo_uri);
 var bumpSchema = new Schema({
     fbid: String,
     name: String,
-    date: {type: Date, default: Date.now, expires: 120},
+    date: {type: Date, default: Date.now, expires: 60},
     geo: {type: [Number], index: '2d'}
 });
 var Bump = mongoose.model('Bump', bumpSchema);
@@ -26,17 +26,13 @@ app.get('/html5', function(req, res){
   res.sendfile('client/index.html');
 });
 
-app.get('/', function(req, res){
-  var bump = new Bump({fbid:req.query.fbid, name:req.query.name, geo:req.query.geo.split(',')});
-  if(req.query.timestamp){
-    bump.date = Date(req.query.timestamp);
-  };
-  bump.save(function(err){
-    if (err) throw err;
-    console.log('bump saved');
-  });
 
-  Bump.find({geo: {$nearSphere: bump.geo, $maxDistance: 0.01} }, 
+function respondBumpsNear(bump, res){
+  Bump.find(
+    {
+      geo:  {$nearSphere: bump.geo, $maxDistance: 0.01}, 
+      fbid: {$ne: bump.fbid} 
+    },
     function(err,docs){
       if(err) throw err;
 
@@ -64,6 +60,19 @@ app.get('/', function(req, res){
       res.json(uniq_results);
     }
   );
+}
+
+app.get('/', function(req, res){
+  var bump = new Bump({fbid:req.query.fbid, name:req.query.name, geo:req.query.geo.split(',')});
+  if(req.query.timestamp){
+    bump.date = Date(req.query.timestamp);
+  };
+  bump.save(function(err){
+    if (err) throw err;
+    console.log('bump saved');
+  });
+
+  setTimeout(respondBumpsNear(bump,res), 2500);
 });
 
 app.listen(process.env.PORT, function() {

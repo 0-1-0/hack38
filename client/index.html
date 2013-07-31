@@ -4,6 +4,43 @@
 </head>
 
 <body>
+
+	<div id="fb-root"></div>
+	<script>
+	  window.fbAsyncInit = function() {
+	    // init the FB JS SDK
+	    FB.init({
+	      appId      : '451362761628856',                   // App ID from the app dashboard
+	      status     : true, 
+	      cookie     : true,
+	      xfbml      : true,
+	      oauth      : true                              // Check Facebook Login status
+	    });
+
+	    // Additional initialization code such as adding Event Listeners goes here
+	    FB.login(function(response) {
+		   if (response.authResponse) {
+		     console.log('Welcome!  Fetching your information.... ');
+		     FB.api('/me', function(response) {
+		       console.log('Good to see you, ' + response.name + '.');
+		     });
+		   } else {
+		     console.log('User cancelled login or did not fully authorize.');
+		   }
+		});
+	  };
+
+	  // Load the SDK asynchronously
+	  (function(d, s, id){
+	     var js, fjs = d.getElementsByTagName(s)[0];
+	     if (d.getElementById(id)) {return;}
+	     js = d.createElement(s); js.id = id;
+	     js.src = "//connect.facebook.net/en_US/all.js";
+	     fjs.parentNode.insertBefore(js, fjs);
+	   }(document, 'script', 'facebook-jssdk'));
+	</script>
+
+
 	<div class="main">
 	  <h2>Device Motion</h2>
 	  <table>
@@ -33,8 +70,6 @@
 	    </tr>
 	  </table>
 	</div>
-</body>
-
 
 	<script>
 		
@@ -94,7 +129,11 @@
 		} else {
 		  document.getElementById("dmEvent").innerHTML = "Not supported."
 		}
+
+
+
 	</script>
 
+</body>
 
 </html>
