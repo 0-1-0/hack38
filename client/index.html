@@ -1,44 +1,53 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 </head>
 
 <body>
+      <div id="fb-root"></div>
+      <script>
+      fbid = '';
 
-	<div id="fb-root"></div>
-	<script>
-	  window.fbAsyncInit = function() {
-	    // init the FB JS SDK
-	    FB.init({
-	      appId      : '451362761628856',                   // App ID from the app dashboard
-	      status     : true, 
-	      cookie     : true,
-	      xfbml      : true,
-	      oauth      : true                              // Check Facebook Login status
-	    });
+        window.fbAsyncInit = function() {
+          FB.init({
+            appId      : '451362761628856',
+            status     : true, 
+            cookie     : true,
+            xfbml      : true,
+            oauth      : true,
+          });
+        };
+        (function(d){
+           var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
+           js = d.createElement('script'); js.id = id; js.async = true;
+           js.src = "//connect.facebook.net/en_US/all.js";
+           d.getElementsByTagName('head')[0].appendChild(js);
+         }(document));
 
-	    // Additional initialization code such as adding Event Listeners goes here
-	    FB.login(function(response) {
-		   if (response.authResponse) {
-		     console.log('Welcome!  Fetching your information.... ');
-		     FB.api('/me', function(response) {
-		       console.log('Good to see you, ' + response.name + '.');
-		     });
-		   } else {
-		     console.log('User cancelled login or did not fully authorize.');
-		   }
-		});
-	  };
+       //LOGIN FUNCTION 
+       function login() {
+        FB.login(function(response) {
+            if (response.authResponse) {
+                alert('Success!');
+                console.log(response.authResponse);
+                fbid = response.authResponse.userID;
+                $('#bump').show();
+            }else{
+                alert('Login Failed!');
+            }
+        }, {scope: 'email'});
+     }
+      </script>
 
-	  // Load the SDK asynchronously
-	  (function(d, s, id){
-	     var js, fjs = d.getElementsByTagName(s)[0];
-	     if (d.getElementById(id)) {return;}
-	     js = d.createElement(s); js.id = id;
-	     js.src = "//connect.facebook.net/en_US/all.js";
-	     fjs.parentNode.insertBefore(js, fjs);
-	   }(document, 'script', 'facebook-jssdk'));
-	</script>
+      
+
+      <div style='background:blue;color:white;' onclick="login();" >
+      	<h1>Login with Facebook</h1>
+      </div>
+
+      <div id="bump" style='background:blue;color:white;' onclick='performBump();'><em>BUMP</em></div> 
+ 
 
 
 	<div class="main">
@@ -71,10 +80,9 @@
 	  </table>
 	</div>
 
-	<script>
-		
 
-		function getLocation() {
+	 <script>
+      	function getLocation() {
 		  if (navigator.geolocation) {
 		    navigator.geolocation.getCurrentPosition(function(position){
 		    	document.getElementById("geo").innerHTML= position.coords.longitude + "," + position.coords.latitude;
@@ -85,13 +93,11 @@
 		   }
 		}
 
-
 		function getTimeStamp(){
 			document.getElementById("timestamp").innerHTML = (new Date().getTime());
 		}
 
 		mcnt = 0.0;
-
 		function deviceMotionHandler(eventData) {
 		  var info, xyz = "[X, Y, Z]";
 
@@ -111,10 +117,13 @@
 		  	mcnt += eventData.interval;
 		  }
 
-		  if (mcnt > 1.0) {
-		  	alert('BUMP!');
-		  	getLocation();
-		  	getTimeStamp();
+		  if (mcnt > 1.0) {		
+		  	var location = getLocation();
+		  	var timestamp = getTimeStamp();
+
+		  	alert(fbid + timestamp + location);
+		  	window.removeEventListener('devicemotion', deviceMotionHandler);
+
 		  	mcnt = 0.0;
 		  }
 
@@ -124,15 +133,22 @@
 		  document.getElementById("moInterval").innerHTML = info;       
 		};
 
-		if (window.DeviceMotionEvent) {
-		  window.addEventListener('devicemotion', deviceMotionHandler, false);
-		} else {
-		  document.getElementById("dmEvent").innerHTML = "Not supported."
-		}
+		$('#bump').hide();
+
+      	function performBump(){
+
+			if (window.DeviceMotionEvent) {
+			  window.addEventListener('devicemotion', deviceMotionHandler, false);
+			} else {
+			  document.getElementById("dmEvent").innerHTML = "Not supported."
+			}
+      	};
 
 
 
-	</script>
+
+
+    </script>
 
 </body>
 
