@@ -27,6 +27,10 @@
 	      <td>geolocation</td>
 	      <td id="geo"></td>
 	    </tr>
+	    <tr>
+	      <td>timeStamp</td>
+	      <td id="timestamp"></td>
+	    </tr>
 	  </table>
 	</div>
 </body>
@@ -44,6 +48,11 @@
 		  else {
 		  	document.getElementById("geo").innerHTML="Geolocation is not supported by this browser.";
 		   }
+		}
+
+
+		function getTimeStamp(){
+			document.getElementById("timestamp").innerHTML = (new Date().getTime());
 		}
 
 		mcnt = 0.0;
@@ -70,6 +79,7 @@
 		  if (mcnt > 1.0) {
 		  	alert('BUMP!');
 		  	getLocation();
+		  	getTimeStamp();
 		  	mcnt = 0.0;
 		  }
 
