@@ -149,7 +149,7 @@
 
 		mcnt = 0.0;
 		function deviceMotionHandler(eventData) {
-			$("#acc").html(eventData.toString());
+			$("#acc").html(JSON.stringify(eventData));
 
 		  // Grab the acceleration from the results
 		  var acc = eventData.acceleration;
