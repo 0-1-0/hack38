@@ -101,8 +101,8 @@
 				      <td id="geo"></td>
 				    </tr>
 				    <tr>
-				      <td>timeStamp</td>
-				      <td id="timestamp"></td>
+				      <td>JSON</td>
+				      <td id="json"></td>
 				    </tr>
 				  </table>
 				</div>
@@ -161,11 +161,7 @@
 		  	,function(data) {
 		  		alert(data);
 			  	var users = JSON.parse(data);
-			  	if (users.length > 0){
-			  		alert(users[0].fbname);
-			  	}else{
-			  		alert('No users near you');
-			  	}
+			  	$('#json').html(users);
 
 			  	FB.ui(
 			     { 
