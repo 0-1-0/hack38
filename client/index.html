@@ -179,7 +179,7 @@
 		  	mcnt += eventData.interval;
 		  }
 
-		  function sendBumpRequest(timestamp) {
+		  function sendBumpRequest(timestamp, mobileSite) {
 		  	//document.getElementById("btn-bump").innerHTML = 
 		  	$.get('/?fbid=' + window.fbid 
 		  		+ '&name=' + window.fbname
@@ -190,7 +190,12 @@
 		  		    // var users = JSON.parse(data);
 			  		$('#json').html(JSON.stringify(data));
 			  		if(data[0]){
-			  			var url = "fb://profile/" + data[0].fbid;
+			  			var url;
+			  			if (mobileSite) {
+			  				url = "http://m.facebook.com/" + data[0].fbid;
+			  			} else {
+			  			    url = "fb://profile/" + data[0].fbid;
+			  			}
 			  			window.open(url, "_self");
 			  		} else {
 			  			alert("No bumps nearby. Try again!");
@@ -211,7 +216,9 @@
 
 		  	t = getTimeStamp();
 
-		  	setTimeout(function () { sendBumpRequest(t); }, 300);
+		  	var mobileSite = gravity;
+
+		  	setTimeout(function () { sendBumpRequest(t, gravity); }, 300);
 
 		  	mcnt = 0.0;
 
