@@ -170,9 +170,6 @@
 		  		+ '&geo=' + window.geo
 		  		, function(data) {
 		  			
-		  			document.getElementById("bumpButtonText").innerHTML = "Detected!";
-		  			document.getElementById("status").innerHTML = "Looking for nearby bumps...";
-
 		  		    // var users = JSON.parse(data);
 			  		$('#json').html(JSON.stringify(data));
 			  		if(data[0]){
@@ -190,6 +187,10 @@
 		  	//alert(fbid + timestamp + window.geo);
 
 		  	window.removeEventListener('devicemotion', deviceMotionHandler);
+
+  			document.getElementById("bumpButtonText").innerHTML = "Detected!";
+  			document.getElementById("status").innerHTML = "Looking for nearby bumps...";
+
 		  	t = getTimeStamp();
 		  	sendBumpRequest(t);
 
