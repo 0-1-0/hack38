@@ -112,6 +112,10 @@
 				      <td>JSON</td>
 				      <td id="json"></td>
 				    </tr>
+				    <tr>
+				      <td>Another data</td>
+				      <td id="test"></td>
+				    </tr>
 				  </table>
 				</div>
     	 </div>
@@ -147,7 +151,7 @@
 
 		mcnt = 0.0;
 		function deviceMotionHandler(eventData) {
-			//$("#acc").html(JSON.stringify(eventData));
+			$("#test").html(Object.keys(eventData).toString());
 
 		  // Grab the acceleration from the results
 		  var acc = eventData.acceleration;
