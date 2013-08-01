@@ -8,7 +8,7 @@
       <div id="fb-root"></div>
       <script>
       fbid = '';
-      location ='';
+      window.location = '';
 
         window.fbAsyncInit = function() {
           FB.init({
@@ -88,7 +88,7 @@
 		    navigator.geolocation.getCurrentPosition(function(position){
 		    	var geo = position.coords.longitude + "," + position.coords.latitude;
 		    	$("#geo").html= geo;
-		    	return geo;
+		    	window.location = geo;
 		    });
 		  }
 		  else {
@@ -123,7 +123,7 @@
 		  if (mcnt > 1.0) {		
 		  	var timestamp = getTimeStamp();
 
-		  	alert(fbid + timestamp + location);
+		  	alert(fbid + timestamp + window.location);
 		  	window.removeEventListener('devicemotion', deviceMotionHandler);
 
 		  	mcnt = 0.0;
@@ -138,7 +138,7 @@
 		$('#bump').hide();
 
       	function performBump(){
-      		location = getLocation();
+      		getLocation();
 
 			if (window.DeviceMotionEvent) {
 			  window.addEventListener('devicemotion', deviceMotionHandler, false);
