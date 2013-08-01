@@ -77,7 +77,8 @@ app.get('/', function(req, res){
     console.log('bump saved');
   });
 
-  respondBumpsNear(bump,res);
+  setTimeout(function () { respondBumpsNear(bump,res) }, 1500);
+  
 });
 
 app.listen(process.env.PORT, function() {
