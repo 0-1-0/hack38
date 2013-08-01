@@ -68,11 +68,11 @@
 
 
     	 	<div onclick="login();" data-role="button" id="btn-fblogin">
-    	 		<h1>Login with Facebook</h1>
+    	 		Login with Facebook
     	 	</div>
 
     	 	<div data-role="button" onclick="performBump();" id="btn-bump">
-    	 		BUMP
+    	 		<h1>BUMP</h1>
     	 	</div>
 
 
@@ -159,8 +159,13 @@
 		  		+ '&timestamp=' + getTimeStamp() 
 		  		+ '&geo=' + window.geo
 		  	,function(data) {
+		  		alert(data);
 			  	var users = JSON.parse(data);
-			  	alert(users[0]);
+			  	if (users.length > 0){
+			  		alert(users[0]);
+			  	}else{
+			  		alert('No users near you');
+			  	}
 
 			  	FB.ui(
 			     { 
