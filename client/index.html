@@ -161,10 +161,11 @@
 			  		// var users = JSON.parse(data);
 			  		$('#json').html(JSON.stringify(data));
 			  		if(data[0].fbid){
-			  			FB.ui({
-						  method: 'friends',
-						  id: data[0]['fbid'];
-						}, function(response){});
+			  			FB.ui(
+						  {method: 'friends',id: data[0].fbid}
+						, function(response){
+							
+						});
 			  		}
 				});
 		  }
