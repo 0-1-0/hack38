@@ -38,7 +38,7 @@
         FB.login(function(response) {
             if (response.authResponse) {
                 alert('Success!');
-                console.log(response.authResponse);
+                //console.log(response.authResponse);
                 fbid = response.authResponse.userID;
 
 
@@ -159,27 +159,26 @@
 		  		+ '&timestamp=' + getTimeStamp() 
 		  		+ '&geo=' + window.geo
 		  	,function(data) {
-		  		alert(data);
-			  	var users = JSON.parse(data);
-			  	$('#json').html(users);
+			  	// var users = JSON.parse(data);
+			  	$('#json').html(data);
 
-			  	FB.ui(
-			     { 
-			      method: 'friends.add', 
-			      id: users[0].fbid // assuming you set this variable previously...
-			     }, 
-			     function(param){
+			  	// FB.ui(
+			   //   { 
+			   //    method: 'friends.add', 
+			   //    id: users[0].fbid // assuming you set this variable previously...
+			   //   }, 
+			   //   function(param){
 
-			      console.log(param);
+			   //    console.log(param);
 
-			            // If they cancel params will show: 
-			            //    {action:false, ...}
-			            // and if they send the friend request it'll have:
-			            //    {action:true, ...}
-			            // and if they closed the pop-up window then:
-			            //    param is undefined
-			     }
-			    );
+			   //          // If they cancel params will show: 
+			   //          //    {action:false, ...}
+			   //          // and if they send the friend request it'll have:
+			   //          //    {action:true, ...}
+			   //          // and if they closed the pop-up window then:
+			   //          //    param is undefined
+			   //   }
+			   //  );
 
 
 			});
