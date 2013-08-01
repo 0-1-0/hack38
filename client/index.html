@@ -8,6 +8,7 @@
     <link href="http://code.jquery.com/mobile/1.3.0/jquery.mobile.structure-1.3.0.min.css" rel="stylesheet"/>
     <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.min.js"></script> 
+
 </head>
 
 <body>
@@ -125,7 +126,8 @@
 		    });
 		  }
 		  else {
-		  	return "";
+		  	alert("Sorry, your browser doesn't support geolocation. :(");
+		  	return;
 		   } 
 		}
 
@@ -147,45 +149,45 @@
 		  var magnitude = Math.sqrt(acc.x*acc.x + acc.y*acc.y + acc.z*acc.z);
 		  document.getElementById("magnitude").innerHTML = magnitude;
 
-		  
 		  //BUMP logic
-		  if (magnitude > 1.5) {
+		  if (magnitude > 1.4) {
 		  	mcnt += eventData.interval;
 		  }
 
-		  function sendBumpRequest(timestamp){
+		  function sendBumpRequest(timestamp, useData) {
+		  	//document.getElementById("btn-bump").innerHTML = 
 		  	$.get('/?fbid=' + window.fbid 
 		  		+ '&name=' + window.fbname
 		  		+ '&timestamp=' + timestamp 
 		  		+ '&geo=' + window.geo
-		  		,function(data) {
-			  		// var users = JSON.parse(data);
-			  		$('#json').html(JSON.stringify(data));
-			  		if(data[0]){
-			  			var url = "fb://profile/" + data[0].fbid;
-			  			/*
-			  			var url = 
-			  			"https://www.facebook.com/dialog/friends/?id=" 
-			  			+ data[0].fbid + 
-			  			"&app_id=451362761628856" + 
-			  			"&redirect_uri=http://hack38.herokuapp.com/html5"
-			  			*/
-			  			window.open(url, "_self");
-			  		}
+		  		, function(data) {
+
+		  			if (useData) {
+			  		    // var users = JSON.parse(data);
+				  		$('#json').html(JSON.stringify(data));
+				  		if(data[0]){
+				  			var url = "fb://profile/" + data[0].fbid;
+				  			window.open(url, "_self");
+				  		} else {
+				  			alert("No bumps nearby. Try agian!");
+				  		}
+				  	}
+
 				});
 		  }
 
 		  if (mcnt > 1.1) {
 		  	//alert(fbid + timestamp + window.geo);
-		  	t = getTimeStamp();
-		  	sendBumpRequest(t);
-		  	setTimeout(sendBumpRequest(t),2000);
 
 		  	window.removeEventListener('devicemotion', deviceMotionHandler);
+		  	t = getTimeStamp();
+		  	sendBumpRequest(t, false);
+
+		  	setTimeout(sendBumpRequest(t, true), 3000);
 
 		  	mcnt = 0.0;
-		  }
 
+		  }
 
 		  // // Grab the refresh interval from the results
 		  info = eventData.interval;
@@ -202,10 +204,8 @@
 			} else {
 			  document.getElementById("dmEvent").innerHTML = "Not supported."
 			}
+
       	};
-
-
-
 
 
     </script>
