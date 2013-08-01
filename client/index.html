@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+	<link href="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.css" rel="stylesheet"/>
+    <link href="http://code.jquery.com/mobile/1.3.0/jquery.mobile.structure-1.3.0.min.css" rel="stylesheet"/>
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.min.js"></script> 
 </head>
 
 <body>
@@ -33,7 +36,8 @@
                 alert('Success!');
                 console.log(response.authResponse);
                 fbid = response.authResponse.userID;
-                $('#bump').show();
+                $('#btn-bump').show();
+                $('#btn-fblogin').hide();
             }else{
                 alert('Login Failed!');
             }
@@ -41,45 +45,60 @@
      }
       </script>
 
-      
-
-      <div style='background:blue;color:white;width=100%;height=20%' onclick="login();" >
-      	<h1>Login with Facebook</h1>
-      </div>
-
-      <div id="bump" style='background:blue;color:white;width=100%;height=20%' onclick='performBump();'><em>BUMP</em></div> 
+   
  
 
+    <div id="tasksPage" data-role="page">
+    	<div data-role="header" data-position="fixed">
+    		<h1>Bump2Friend</h1>
+    	</div>
 
-	<div class="main">
-	  <h2>Device Motion</h2>
-	  <table>
-	    <tr>
-	      <td>Event Supported</td>
-	      <td id="dmEvent"></td>
-	    </tr>
-	    <tr>
-	      <td>acceleration</td>
-	      <td id="acc"></td>
-	    </tr>
-	    <tr>
-	      <td>magnitude</td>
-	      <td id="magnitude"></td>
-	    </tr>
-	    <tr>
-	      <td>interval</td>
-	      <td id="moInterval"></td>
-	    </tr>
-	    <tr>
-	      <td>geolocation</td>
-	      <td id="geo"></td>
-	    </tr>
-	    <tr>
-	      <td>timeStamp</td>
-	      <td id="timestamp"></td>
-	    </tr>
-	  </table>
-	</div>
+    	 <div data-role="content" id="btn-fblogin">
+    	 	<div onclick="login();" data-role="button">
+    	 		<h1>Login with Facebook</h1>
+    	 	</div>
+
+    	 	<div data-role="button" onclick="performBump();" id="btn-bump">
+    	 		<h1>BUMP</h1>
+    	 	</div>
+
+
+
+    	 		<div class="main">
+				  <h2>Device Motion</h2>
+				  <table>
+				    <tr>
+				      <td>Event Supported</td>
+				      <td id="dmEvent"></td>
+				    </tr>
+				    <tr>
+				      <td>acceleration</td>
+				      <td id="acc"></td>
+				    </tr>
+				    <tr>
+				      <td>magnitude</td>
+				      <td id="magnitude"></td>
+				    </tr>
+				    <tr>
+				      <td>interval</td>
+				      <td id="moInterval"></td>
+				    </tr>
+				    <tr>
+				      <td>geolocation</td>
+				      <td id="geo"></td>
+				    </tr>
+				    <tr>
+				      <td>timeStamp</td>
+				      <td id="timestamp"></td>
+				    </tr>
+				  </table>
+				</div>
+    	 </div>
+
+    	 <div data-role="footer" data-position="fixed">
+        </div>
+    </div>
+	
 
 
 	 <script>
@@ -135,7 +154,7 @@
 		  document.getElementById("moInterval").innerHTML = info;       
 		};
 
-		$('#bump').hide();
+		$('#btn-bump').hide();
 
       	function performBump(){
       		getLocation();
