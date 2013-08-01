@@ -55,7 +55,7 @@ function respondBumpsNear(bump, res){
         //not uniq
         if(flags[results[i].fbid]) continue;
         //obsolete
-        if(results[i].timedelta > 6000) continue;
+        if(results[i].timedelta > 6666) continue;
 
         flags[results[i].fbid] = true;
         uniq_results.push(results[i]);
@@ -76,7 +76,7 @@ app.get('/', function(req, res){
     console.log('bump saved');
   });
 
-  setTimeout(respondBumpsNear(bump,res), 2500);
+  respondBumpsNear(bump,res);
 });
 
 app.listen(process.env.PORT, function() {
