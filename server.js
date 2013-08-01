@@ -50,14 +50,15 @@ function respondBumpsNear(bump, res){
       //Sort results by timedelta to the saved bump
       results = results.sort(function(a,b){return a.timedelta - b.timedelta});
       //return only uniq id results
-      var flags = {}, uniq_results = [];
+      var u = {};
+      var uniq_results = [];
       for (var i = 0; i < results.length; i++){
         //not uniq
-        if(flags[results[i].fbid]) continue;
+        if(u.hasOwnProperty(results[i].fbid)) continue;
         //obsolete
         if(results[i].timedelta > 5000) continue;
 
-        flags[results[i].fbid] = 1;
+        u[results[i].fbid] = 1;
         uniq_results.push(results[i]);
       }
 
