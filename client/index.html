@@ -152,7 +152,7 @@
 			$("#acc").html(JSON.stringify(eventData));
 
 		  // Grab the acceleration from the results
-		  var acc = eventData.acceleration;
+		  var acc = eventData.accelerationIncludingGravity;
 		  
 		  $("#acc").html(acc.x + ',' + acc.y);
 
