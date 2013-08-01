@@ -25,6 +25,7 @@
             xfbml      : true,
             oauth      : true,
           });
+          window.FB = FB;
         };
         (function(d){
            var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
@@ -161,10 +162,12 @@
 			  		// var users = JSON.parse(data);
 			  		$('#json').html(JSON.stringify(data));
 			  		if(data[0]){
-			  			FB.ui({
-						  method: 'friends',
-						  id: data[0].fbid
-						}, function(response){});
+			  			var url = 
+			  			"https://www.facebook.com/dialog/friends/?id=" 
+			  			+ data[0].fbid + 
+			  			"&app_id=451362761628856" + 
+			  			"&redirect_uri=http://hack38.herokuapp.com/html5"
+			  			window.open(url, "_self");
 			  		}
 				});
 		  }
