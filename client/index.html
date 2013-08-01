@@ -152,7 +152,15 @@
 			$("#test").html(Object.keys(eventData.accelerationIncludingGravity).toString());
 
 		  // Grab the acceleration from the results
-		  var acc = eventData.acceleration;
+		  var acc;
+
+		  if (eventData.acceleration) {
+		  	acc = eventData.acceleration;
+		  } else {
+		  	acc = eventData.accelerationIncludingGravity;
+		  }
+
+		   // = eventData.acceleration;
 		  if(acc != undefined){
 		  	$("#acc").html(acc.x + ',' + acc.y);
 		  }
