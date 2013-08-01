@@ -150,7 +150,7 @@
 		  document.getElementById("magnitude").innerHTML = magnitude;
 
 		  //BUMP logic
-		  if (magnitude > 1.2) {
+		  if (magnitude > 1.4) {
 		  	mcnt += eventData.interval;
 		  }
 
@@ -168,7 +168,7 @@
 				  		if(data[0]){
 				  			var url = "fb://profile/" + data[0].fbid;
 				  			window.open(url, "_self");
-				  			document.getElementById("btn-bump").value = "Bump again!";
+				  			document.getElementById("btn-bump").innerHTML.innerHTML = "Bump again!";
 				  		} else {
 				  			alert("No bumps nearby. Try again!");
 				  		}
@@ -177,12 +177,16 @@
 				});
 		  }
 
-		  if (mcnt > 0.8) {
+		  if (mcnt > 1.0) {
 		  	//alert(fbid + timestamp + window.geo);
 
 		  	window.removeEventListener('devicemotion', deviceMotionHandler);
 		  	t = getTimeStamp();
 		  	sendBumpRequest(t, false);
+
+		  	for (var i = 0; i < 3000; i++) {
+		  		1 + 1;
+		  	}
 
 		  	setTimeout(sendBumpRequest(t, true), 7500);
 
@@ -195,14 +199,14 @@
 		  document.getElementById("moInterval").innerHTML = info;       
 		};
 
-		$('#btn-bump').hide();
+		$('#btn-bump').hide(); 
 
       	function performBump(){
       		getLocation();
 
 			if (window.DeviceMotionEvent) {
 			  window.addEventListener('devicemotion', deviceMotionHandler, false);
-			  document.getElementById("btn-bump").value = "Start bumping!";
+			  document.getElementById("btn-bump").innerHTML.innerHTML = "Start bumping!";
 			} else {
 			  document.getElementById("dmEvent").innerHTML = "Not supported.";
 			}
