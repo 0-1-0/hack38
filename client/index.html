@@ -80,8 +80,6 @@
     	 	<div class="facebookLoginToast" style="display:none">Login Successful!</div>
     	 	<h3 id="status"></h2>
 
-    	 		<div id="acc"> </div>
-
     	 		<div class="main">
 				  <h2>Device Motion</h2>
 				  <table>
@@ -96,7 +94,7 @@
 				    </tr>
 				    <tr>
 				      <td>acceleration</td>
-				      <td></td>
+				      <td id="acc"></td>
 				    </tr>
 				    <tr>
 				      <td>magnitude</td>
@@ -149,7 +147,7 @@
 
 		mcnt = 0.0;
 		function deviceMotionHandler(eventData) {
-			$("#acc").html(JSON.stringify(eventData));
+			//$("#acc").html(JSON.stringify(eventData));
 
 		  // Grab the acceleration from the results
 		  var acc = eventData.acceleration;
