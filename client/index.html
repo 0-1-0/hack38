@@ -152,9 +152,10 @@
 			$("#acc").html(JSON.stringify(eventData));
 
 		  // Grab the acceleration from the results
-		  var acc = eventData.accelerationIncludingGravity;
-		  
-		  $("#acc").html(acc.x + ',' + acc.y);
+		  var acc = eventData.acceleration;
+		  if(acc != undefined){
+		  	$("#acc").html(acc.x + ',' + acc.y);
+		  }
 
 		  var magnitude = Math.sqrt(acc.x*acc.x + acc.y*acc.y + acc.z*acc.z);
 		  document.getElementById("magnitude").innerHTML = magnitude;
