@@ -74,7 +74,7 @@
     	 	</div>
 
     	 	<div data-role="button" onclick="performBump();" id="btn-bump">
-    	 		<h1 id="bumpButtonText">BUMP</h1>
+    	 		<h1 id="bumpButtonText">Press to Bump</h1>
     	 	</div>
 
     	 	<div class="facebookLoginToast" style="display:none">Login Successful!</div>
@@ -171,7 +171,7 @@
 		  		, function(data) {
 		  			
 		  			document.getElementById("bumpButtonText").innerHTML = "Detected!";
-		  			document.getElementById("status").innerHTML = "Checking for nearby bumps...";
+		  			document.getElementById("status").innerHTML = "Looking for nearby bumps...";
 
 		  		    // var users = JSON.parse(data);
 			  		$('#json').html(JSON.stringify(data));
