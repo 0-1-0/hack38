@@ -54,11 +54,11 @@ function respondBumpsNear(bump, res){
       var uniq_results = [];
       for (var i = 0; i < results.length; i++){
         //not uniq
-        if(u.hasOwnProperty(results[i].fbid)) continue;
+        if(u.hasOwnProperty(results[i].fbid.toString())) continue;
         //obsolete
         if(results[i].timedelta > 5000) continue;
 
-        u[results[i].fbid] = 1;
+        u[results[i].fbid.toString] = 1;
         uniq_results.push(results[i]);
       }
 
