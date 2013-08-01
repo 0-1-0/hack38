@@ -153,11 +153,14 @@
 
 		  // Grab the acceleration from the results
 		  var acc;
+		  var gravity;
 
 		  if (eventData.acceleration) {
 		  	acc = eventData.acceleration;
+		  	gravity = false;
 		  } else {
 		  	acc = eventData.accelerationIncludingGravity;
+		  	gravity = true;
 		  }
 
 		   // = eventData.acceleration;
@@ -166,6 +169,9 @@
 		  }
 
 		  var magnitude = Math.sqrt(acc.x*acc.x + acc.y*acc.y + acc.z*acc.z);
+		  if(gravity){
+		  	magnitude -= 9.76;
+		  }
 		  document.getElementById("magnitude").innerHTML = magnitude;
 
 		  //BUMP logic
