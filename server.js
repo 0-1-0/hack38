@@ -77,7 +77,7 @@ app.get('/', function(req, res){
     console.log('bump saved');
   });
 
-  setTimeout(function () { respondBumpsNear(bump, res); }, 2000);
+  setTimeout(function () { respondBumpsNear(bump, res); }, 1500);
   
 
 });
