@@ -129,7 +129,7 @@
 		  if (navigator.geolocation) {
 		    navigator.geolocation.getCurrentPosition(function(position){
 		    	var geo = position.coords.longitude + "," + position.coords.latitude;
-		    	$("#geo").html= geo;
+		    	$("#geo").html(geo);
 		    	window.geo = geo;
 		    }),
 		    function(error){
