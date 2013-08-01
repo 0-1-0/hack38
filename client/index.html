@@ -83,6 +83,11 @@
 				  <h2>Device Motion</h2>
 				  <table>
 				    <tr>
+				      <td id="test1"></td>
+				      <td id="test2"></td>
+				      <td id="test3"></td>
+				    </tr>
+				    <tr>
 				      <td>Event Supported</td>
 				      <td id="dmEvent"></td>
 				    </tr>
@@ -168,10 +173,12 @@
 				  		if(data[0]){
 				  			var url = "fb://profile/" + data[0].fbid;
 				  			window.open(url, "_self");
-				  			document.getElementById("bumpButtonText").innerHTML = "Bump again!";
 				  		} else {
 				  			alert("No bumps nearby. Try again!");
 				  		}
+				  		document.getElementById("bumpButtonText").innerHTML = "Bump again!";
+				  	} else {
+				  		document.getElementById("test1").innerHTML = "null request";
 				  	}
 
 				});
@@ -185,7 +192,7 @@
 		  	sendBumpRequest(t, false);
 
 		  	for (var i = 0; i < 10000; i++) {
-		  		1 + 1;
+		  		document.getElementById("test2").innerHTML = i;
 		  	}
 
 		  	setTimeout(sendBumpRequest(t, true), 7500);
