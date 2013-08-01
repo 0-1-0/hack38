@@ -131,7 +131,11 @@
 		    	var geo = position.coords.longitude + "," + position.coords.latitude;
 		    	$("#geo").html= geo;
 		    	window.geo = geo;
-		    });
+		    }),
+		    function(error){
+		    	alert(error);
+		    },
+		    {timeout:3000}
 		  }
 		  else {
 		  	alert("Sorry, your browser doesn't support geolocation. :(");
