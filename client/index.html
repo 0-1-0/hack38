@@ -210,7 +210,8 @@
   			document.getElementById("status").innerHTML = "Looking for nearby bumps...";
 
 		  	t = getTimeStamp();
-		  	sendBumpRequest(t);
+
+		  	setTimeout(function () { sendBumpRequest(t); }, 300);
 
 		  	mcnt = 0.0;
 
