@@ -150,7 +150,7 @@
 		  document.getElementById("magnitude").innerHTML = magnitude;
 
 		  //BUMP logic
-		  if (magnitude > 1.4) {
+		  if (magnitude > 1.2) {
 		  	mcnt += eventData.interval;
 		  }
 
@@ -176,7 +176,7 @@
 				});
 		  }
 
-		  if (mcnt > 1.1) {
+		  if (mcnt > 0.8) {
 		  	//alert(fbid + timestamp + window.geo);
 
 		  	window.removeEventListener('devicemotion', deviceMotionHandler);
