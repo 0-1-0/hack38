@@ -55,13 +55,13 @@ function respondBumpsNear(bump, res){
         //not uniq
         if(flags[results[i].fbid]) continue;
         //obsolete
-        if(results[i].timedelta > 6666) continue;
+        if(results[i].timedelta > 5000) continue;
 
-        flags[results[i].fbid] = true;
+        flags[results[i].fbid] = 1;
         uniq_results.push(results[i]);
       }
 
-      res.json(results);
+      res.json(uniq_results);
     }
   );
 }
