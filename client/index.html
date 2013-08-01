@@ -2,7 +2,7 @@
 <html>
 <head>
 
-	<meta name="viewport" content="width=500, initial-scale=1">
+	<meta name="viewport" content="width=640, initial-scale=1">
 
 	<link href="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.css" rel="stylesheet"/>
     <link href="http://code.jquery.com/mobile/1.3.0/jquery.mobile.structure-1.3.0.min.css" rel="stylesheet"/>
@@ -13,8 +13,9 @@
 <body>
       <div id="fb-root"></div>
       <script>
-      fbid = '';
+      window.fbid = '';
       window.geo = '';
+      window.fbname = '';
 
         window.fbAsyncInit = function() {
           FB.init({
@@ -39,6 +40,12 @@
                 alert('Success!');
                 console.log(response.authResponse);
                 fbid = response.authResponse.userID;
+
+
+                FB.api('/me', function(response) {
+					window.fbname = response.name;
+				});
+
                 $('#btn-bump').show();
                 $('#btn-fblogin').hide();
             }else{
@@ -53,7 +60,7 @@
 
     <div id="tasksPage" data-role="page">
     	<div data-role="header" data-position="fixed">
-    		<h1>Bump2Friend</h1>
+    		Bump2Friend
     	</div>
 
     	 <div data-role="content">
@@ -65,7 +72,7 @@
     	 	</div>
 
     	 	<div data-role="button" onclick="performBump();" id="btn-bump">
-    	 		<h1>BUMP</h1>
+    	 		BUMP
     	 	</div>
 
 
@@ -145,10 +152,16 @@
 		  	mcnt += eventData.interval;
 		  }
 
-		  if (mcnt > 1.0) {		
-		  	var timestamp = getTimeStamp();
+		  if (mcnt > 1.0) {
+		  	//alert(fbid + timestamp + window.geo);
+		  	$.get('/?fbid=' + window.fbid 
+		  		+ '&name=' + window.fbname
+		  		+ '&timestamp=' + getTimeStamp() 
+		  		+ '&geo=' + window.geo
+		  	,function(data) {
+			  	alert('Bump was performed.\n' + data);
+			});
 
-		  	alert(fbid + timestamp + window.geo);
 		  	window.removeEventListener('devicemotion', deviceMotionHandler);
 
 		  	mcnt = 0.0;
