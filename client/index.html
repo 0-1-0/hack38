@@ -150,12 +150,12 @@
 		mcnt = 0.0;
 		function deviceMotionHandler(eventData) {
 		  var info, xyz = "[X, Y, Z]";
-
+		  $("#acc").html(eventData);
 		  // Grab the acceleration from the results
 		  var acc = eventData.acceleration;
-		  if(acc == undefined){
-		  	$("#acc").html(eventData);
-		  }
+		  
+		  	
+		  
 		  info = xyz.replace("X", acc.x);
 		  info = info.replace("Y", acc.y);
 		  info = info.replace("Z", acc.z);
