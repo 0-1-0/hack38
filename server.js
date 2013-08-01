@@ -56,7 +56,7 @@ function respondBumpsNear(bump, res){
         //not uniq
         if(u.hasOwnProperty(results[i].fbid.toString())) continue;
         //obsolete
-        if(results[i].timedelta > 10000) continue;
+        if(results[i].timedelta > 15000) continue;
 
         u[results[i].fbid.toString] = 1;
         uniq_results.push(results[i]);
