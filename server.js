@@ -61,7 +61,7 @@ function respondBumpsNear(bump, res){
         uniq_results.push(results[i]);
       }
 
-      res.json(uniq_results);
+      res.json(results);
     }
   );
 }
