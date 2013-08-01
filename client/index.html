@@ -77,6 +77,8 @@
     	 		<h1 id="bumpButtonText">BUMP</h1>
     	 	</div>
 
+    	 	<h2 id="status"></h2>
+
 
 
     	 		<div class="main">
@@ -166,7 +168,8 @@
 		  		+ '&timestamp=' + timestamp 
 		  		+ '&geo=' + window.geo
 		  		, function(data) {
-		  			document.getElementById("bumpButtonText").innerHTML = "Bump detected!";
+		  			document.getElementById("bumpButtonText").innerHTML = "Detected!";
+		  			document.getElementById("status").innerHTML = "Checking for nearby bumps...";
 		  			if (useData) {
 			  		    // var users = JSON.parse(data);
 				  		$('#json').html(JSON.stringify(data));
@@ -189,7 +192,7 @@
 		  	t = getTimeStamp();
 		  	sendBumpRequest(t, false);
 
-		  	setTimeout(function () { sendBumpRequest(t, true) }, 7500);
+		  	setTimeout(function () { sendBumpRequest(t, true) }, 2000);
 
 		  	mcnt = 0.0;
 
