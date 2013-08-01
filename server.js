@@ -33,7 +33,7 @@ function respondBumpsNear(bump, res){
       geo:  {$nearSphere: bump.geo, $maxDistance: 0.01}, 
       fbid: {$ne: bump.fbid} 
     },
-    function(err,docs){
+    function(err, docs){
       if(err) throw err;
 
       //convert MongoDB Query into an array of objects
@@ -77,8 +77,8 @@ app.get('/', function(req, res){
     console.log('bump saved');
   });
 
-  setTimeout(function () { respondBumpsNear(bump,res) }, 1500);
-  
+  setTimeout(function () { respondBumpsNear(bump, res) }, 0);
+
 });
 
 app.listen(process.env.PORT, function() {
