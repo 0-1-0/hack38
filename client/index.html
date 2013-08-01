@@ -148,7 +148,7 @@
 
 		  
 		  //BUMP logic
-		  if (magnitude > 1.4) {
+		  if (magnitude > 1.5) {
 		  	mcnt += eventData.interval;
 		  }
 
@@ -166,7 +166,7 @@
 				});
 		  }
 
-		  if (mcnt > 1.0) {
+		  if (mcnt > 1.1) {
 		  	//alert(fbid + timestamp + window.geo);
 		  	t = getTimeStamp();
 		  	sendBumpRequest(t);
