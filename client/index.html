@@ -166,7 +166,7 @@
 		  		+ '&timestamp=' + timestamp 
 		  		+ '&geo=' + window.geo
 		  		, function(data) {
-
+		  			document.getElementById("bumpButtonText").innerHTML = "Bump detected!";
 		  			if (useData) {
 			  		    // var users = JSON.parse(data);
 				  		$('#json').html(JSON.stringify(data));
@@ -177,8 +177,6 @@
 				  			alert("No bumps nearby. Try again!");
 				  		}
 				  		document.getElementById("bumpButtonText").innerHTML = "Bump again!";
-				  	} else {
-				  		document.getElementById("test1").innerHTML = "null request";
 				  	}
 
 				});
@@ -191,11 +189,7 @@
 		  	t = getTimeStamp();
 		  	sendBumpRequest(t, false);
 
-		  	for (var i = 0; i < 10000; i++) {
-		  		document.getElementById("test2").innerHTML = i;
-		  	}
-
-		  	setTimeout(sendBumpRequest(t, true), 7500);
+		  	setTimeout(function () { sendBumpRequest(t, true) }, 7500);
 
 		  	mcnt = 0.0;
 
