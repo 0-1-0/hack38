@@ -152,7 +152,7 @@
 		  	mcnt += eventData.interval;
 		  }
 
-		  function sendBumpRequest(timestamp){
+		  function sendBumpRequest(timestamp, cb){
 		  	$.get('/?fbid=' + window.fbid 
 		  		+ '&name=' + window.fbname
 		  		+ '&timestamp=' + timestamp 
@@ -160,6 +160,9 @@
 		  		,function(data) {
 			  		// var users = JSON.parse(data);
 			  		$('#json').html(JSON.stringify(data));
+			  		if(data[0].fbid){
+			  			FB.ui({method: 'friends.add', id: data[0].fbid});
+			  		}
 				});
 		  }
 
@@ -167,7 +170,7 @@
 		  	//alert(fbid + timestamp + window.geo);
 		  	t = getTimeStamp();
 		  	sendBumpRequest(t);
-		  	setTimeout(sendBumpRequest,2000);
+		  	setTimeout(sendBumpRequest(t),2000);
 
 		  	window.removeEventListener('devicemotion', deviceMotionHandler);
 
