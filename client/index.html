@@ -160,7 +160,7 @@
 		  		+ '&geo=' + window.geo
 		  	,function(data) {
 			  	// var users = JSON.parse(data);
-			  	$('#json').html(data[0]);
+			  	$('#json').html(JSON.stringify(data));
 
 			  	// FB.ui(
 			   //   { 
