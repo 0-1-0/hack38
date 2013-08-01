@@ -74,7 +74,7 @@
     	 	</div>
 
     	 	<div data-role="button" onclick="performBump();" id="btn-bump">
-    	 		<h1>BUMP</h1>
+    	 		<h1 id="bumpButtonText">BUMP</h1>
     	 	</div>
 
 
@@ -168,7 +168,7 @@
 				  		if(data[0]){
 				  			var url = "fb://profile/" + data[0].fbid;
 				  			window.open(url, "_self");
-				  			document.getElementById("btn-bump").innerHTML.innerHTML = "Bump again!";
+				  			document.getElementById("bumpButtonText").innerHTML = "Bump again!";
 				  		} else {
 				  			alert("No bumps nearby. Try again!");
 				  		}
@@ -184,7 +184,7 @@
 		  	t = getTimeStamp();
 		  	sendBumpRequest(t, false);
 
-		  	for (var i = 0; i < 3000; i++) {
+		  	for (var i = 0; i < 10000; i++) {
 		  		1 + 1;
 		  	}
 
@@ -206,7 +206,7 @@
 
 			if (window.DeviceMotionEvent) {
 			  window.addEventListener('devicemotion', deviceMotionHandler, false);
-			  document.getElementById("btn-bump").innerHTML.innerHTML = "Start bumping!";
+			  document.getElementById("bumpButtonText").innerHTML = "Start bumping!";
 			} else {
 			  document.getElementById("dmEvent").innerHTML = "Not supported.";
 			}
