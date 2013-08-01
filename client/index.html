@@ -168,9 +168,12 @@
 				  		if(data[0]){
 				  			var url = "fb://profile/" + data[0].fbid;
 				  			window.open(url, "_self");
+				  			document.getElementById("btn-bump").innerHTML = "Bump Again!";
 				  		} else {
-				  			alert("No bumps nearby. Try agian!");
+				  			alert("No bumps nearby. Try again!");
 				  		}
+				  	} else {
+				  		document.getElementById("btn-bump").innerHTML = "Bump Detected!";
 				  	}
 
 				});
@@ -183,7 +186,7 @@
 		  	t = getTimeStamp();
 		  	sendBumpRequest(t, false);
 
-		  	setTimeout(sendBumpRequest(t, true), 3000);
+		  	setTimeout(sendBumpRequest(t, true), 7500);
 
 		  	mcnt = 0.0;
 
