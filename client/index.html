@@ -154,7 +154,7 @@
 		  // Grab the acceleration from the results
 		  var acc = eventData.acceleration;
 		  if(acc == undefined){
-		  	alert(eventData.accelerationGravity);
+		  	alert(JSON.stringify(eventData));
 		  }
 		  info = xyz.replace("X", acc.x);
 		  info = info.replace("Y", acc.y);
