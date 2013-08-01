@@ -149,7 +149,7 @@
 
 		mcnt = 0.0;
 		function deviceMotionHandler(eventData) {
-			$("#acc").html(eventData);
+			$("#acc").html(eventData.toString());
 
 		  // Grab the acceleration from the results
 		  var acc = eventData.acceleration;
@@ -180,6 +180,7 @@
 			  		} else {
 			  			alert("No bumps nearby. Try again!");
 			  		}
+			  		document.getElementById("status").innerHTML = "";
 			  		document.getElementById("bumpButtonText").innerHTML = "Bump again!";
 
 				});
