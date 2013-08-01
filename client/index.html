@@ -168,12 +168,10 @@
 				  		if(data[0]){
 				  			var url = "fb://profile/" + data[0].fbid;
 				  			window.open(url, "_self");
-				  			document.getElementById("btn-bump").innerHTML = "Bump Again!";
+				  			document.getElementById("btn-bump").value = "Bump again!";
 				  		} else {
 				  			alert("No bumps nearby. Try again!");
 				  		}
-				  	} else {
-				  		document.getElementById("btn-bump").innerHTML = "Bump Detected!";
 				  	}
 
 				});
@@ -204,8 +202,9 @@
 
 			if (window.DeviceMotionEvent) {
 			  window.addEventListener('devicemotion', deviceMotionHandler, false);
+			  document.getElementById("btn-bump").value = "Start bumping!";
 			} else {
-			  document.getElementById("dmEvent").innerHTML = "Not supported."
+			  document.getElementById("dmEvent").innerHTML = "Not supported.";
 			}
 
       	};
