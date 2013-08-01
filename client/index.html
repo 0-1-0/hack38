@@ -149,7 +149,7 @@
 
 		mcnt = 0.0;
 		function deviceMotionHandler(eventData) {
-			$("#test").html(Object.keys(eventData.acceleration).toString());
+			$("#test").html(Object.keys(eventData.accelerationIncludingGravity).toString());
 
 		  // Grab the acceleration from the results
 		  var acc = eventData.acceleration;
